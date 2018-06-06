@@ -1,15 +1,21 @@
-var express = require( "express" );
-var app = express();
-var http = require( "http" );
-app.use( express.static( "./public" ) ); // where the web page code goes
-var http_server = http.createServer( app ).listen( 4242 );
-var http_io = require( "socket.io" )( http_server );
+var fs = require('fs')
+, http = require('http')
+, socketio = require('socket.io');
 
-http_io.on( "connection", function( httpsocket ) {
-    httpsocket.on( 'python-message', function( fromPython ) {
-        httpsocket.broadcast.emit( 'message', fromPython );
+var server = http.createServer(function(req, res) {
+        res.writeHead(200, { 'Content-type': 'text/html'});
+        res.end(fs.readFileSync(__dirname + '/index.html'));
+        }).listen(8090, function() {
+            console.log('Listening at: http://192.168.43.156:4242');
+            });
+
+socketio.listen(server).on('connection', function (socket) {
+
+        socket.on('message', function (msg) {
+        console.log('Message Received: ', msg);
+        socket.broadcast.emit('message', msg);
+        });        
     });
-});
 
 
 
