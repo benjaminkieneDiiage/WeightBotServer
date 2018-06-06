@@ -22,10 +22,10 @@ net.createServer(function (socket) {
   });
 
   // Remove the client from the list when it leaves
-  socket.on('end', function () {
+ /* socket.on('end', function () {
     clients.splice(clients.indexOf(socket), 1);
     broadcast(socket.name + " s'est déconnecté.\n");
-  });
+  });*/
   
   // Send a message to all clients
   function broadcast(message, sender) {
