@@ -2,21 +2,22 @@ var fs = require('fs')
 , http = require('http')
 , socketio = require('socket.io');
 
-var server = http.createServer(function(req, res) {
+var server = http.createServer(function(req, res) 
+{
         res.writeHead(200, { 'Content-type': 'text/html'});
         res.end(fs.readFileSync(__dirname + '/index.html'));
-        }).listen(8090, function() {
+}).listen(8090, function() 
+          {
             console.log('Ecoute sur: http://localhost:8090');
-            });
+          });
 
-socketio.listen(server).on('connection', function (socket) {
-
+socketio.listen(server).on('connection', function (socket) 
+{
         socket.on('message', function (msg) {
         console.log(socket.remoteAddress + ":" + socket.remotePort);
         socket.broadcast.emit('message', msg);
         });        
-    });
-};
+});
 
 
 
