@@ -9,7 +9,6 @@ net.createServer(function (socket) {
   bots.push(socket.id);
   console.log(socket.id + " est connecté");
 
-  bots[0].write("coucou connard");
 
   socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
