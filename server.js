@@ -1,24 +1,27 @@
-var fs = require('fs')
-, http = require('http')
-, socketio = require('socket.io');
+var net = require('net');
+var JsonSocket = require('json-socket');
+var port1 = 4242;
+var server = net.createServer();
 
-var server = http.createServer(function(req, res) {
-        res.writeHead(200, { 'Content-type': 'text/html'});
-        res.end(fs.readFileSync(__dirname + '/index.html'));
-        }).listen(4242, function() {
-            console.log('Listening at: http://192.168.43.156:4242');
-            });
-
-socketio.listen(server).on('connection', function (socket) {
-
-        socket.on('message', function (msg) {
-        console.log('Message Received: ', msg);
-        socket.broadcast.emit('message', msg);
-        });        
+server.listen(port1);
+server.on('connection', function(socket) {
+    liste=[];
+    object={};
+    liste.push(socket.remoteAddress);
+    console.log(liste);
+    socket = new JsonSocket(socket);
+    var n;
+    var isRunning = false;
+    var streatTimeout;
+    
+    socket.on('data', function(data) {
+        var str= data.toString();
+        console.log("veri : "+data.toString());    
+        var array = str.split(',');
+        console.log(array);
+        io.emit(array[0],array)
     });
-
- 
-
+});
 /*net = require('net');
 
 //tableau des robots
