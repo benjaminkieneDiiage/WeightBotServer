@@ -1,8 +1,13 @@
-var app = require('http').createServer()
-var io = require('socket.io')(app);
 var port = 4242;
 
-app.listen(4242);
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+http.listen(port, function()
+{
+  console.log('listening on *:'+port);
+});
 
 io.on('connect', onConnect);
 
