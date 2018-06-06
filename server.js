@@ -6,10 +6,10 @@ var io = require('socket.io')(http);
 
 http.listen(port, function()
 {
+  io.on('connection', onConnect);
   console.log('listening on *:'+port);
 });
 
-io.on('connect', onConnect);
 
 function onConnect(socket)
 {
