@@ -21,7 +21,7 @@ net.createServer(function (socket) {
     broadcast(data, socket);
   });
 
-  socket.emit("coucou connard");
+  socket.emit("coucou","connard");
 
   // Remove the client from the list when it leaves
  /* socket.on('end', function () {
