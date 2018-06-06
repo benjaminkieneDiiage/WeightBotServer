@@ -1,20 +1,16 @@
 var port = 4242;
+var http = require('http');
+var io = require("socket.io");
+var app = http.createServer();
+app.listen(port);
 
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = io.listen(app);
 
-http.listen(port, function()
+io.sockets.on('connection', function (socket) 
 {
-  io.on('connection', onConnect);
-  console.log('listening on *:'+port);
+    socket.emit('connection from '+ socket);
 });
 
-
-function onConnect(socket)
-{
-  console.log("connected from "+socket);
-}
       
 /*var net = require('net');
 var io = require('socket.io');
