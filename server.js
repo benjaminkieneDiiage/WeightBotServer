@@ -36,6 +36,7 @@ var bots = [];
 net.createServer(function (socket) {
   socket.name = socket.remoteAddress + ":" + socket.remotePort 
   bots.push(socket);
+  console.log(socket.name + " est connecté");
   socket.write(socket.name + " est connecté");
   /*socket.on('data', function (data) {
     broadcast(data, socket);
