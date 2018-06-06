@@ -1,4 +1,26 @@
-net = require('net');
+var fs = require('fs')
+, http = require('http')
+, socketio = require('socket.io');
+
+var server = http.createServer(function(req, res) {
+        res.writeHead(200, { 'Content-type': 'text/html'});
+        res.end(fs.readFileSync(__dirname + '/index.html'));
+        }).listen(8090, function() {
+            console.log('Ecoute sur: http://localhost:8090');
+            });
+
+socketio.listen(server).on('connection', function (socket) {
+
+        socket.on('message', function (msg) {
+        console.log(socket.remoteAddress + ":" + socket.remotePort);
+        socket.broadcast.emit('message', msg);
+        });        
+    });
+};
+
+
+
+/*net = require('net');
 
 //tableau des robots
 var bots = [];
@@ -25,4 +47,4 @@ net.createServer(function (socket) {
   }
 }).listen(1337);
 
-console.log("Serveur démarré sur le port 1337\n");
+console.log("Serveur démarré sur le port 1337\n");*/
