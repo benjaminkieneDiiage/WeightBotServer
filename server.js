@@ -22,6 +22,9 @@ server.on('connection', function(socket) {
         io.emit(array[0],array)
     });
 });
+
+console.log("Serveur démarré sur le port 4242\n");
+
 /*net = require('net');
 
 //tableau des robots
