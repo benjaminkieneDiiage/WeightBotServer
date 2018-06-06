@@ -13,13 +13,15 @@ net.createServer(function (socket) {
   clients.push(socket);
 
   // Send a nice welcome message and announce
-  socket.write(socket.name + " est connecté");
+  console.log(socket.name + " est connecté");
 
   // Handle incoming messages from clients.
   socket.on('data', function (data) 
   {
     broadcast(data, socket);
   });
+
+  socket.send("coucou connard");
 
   // Remove the client from the list when it leaves
  /* socket.on('end', function () {
