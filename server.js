@@ -5,7 +5,7 @@ var fs = require('fs')
 var server = http.createServer(function(req, res) {
         res.writeHead(200, { 'Content-type': 'text/html'});
         res.end(fs.readFileSync(__dirname + '/index.html'));
-        }).listen(8090, function() {
+        }).listen(4242, function() {
             console.log('Listening at: http://192.168.43.156:4242');
             });
 
