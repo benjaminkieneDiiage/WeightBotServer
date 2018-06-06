@@ -3,7 +3,7 @@ var JsonSocket = require('json-socket');
 
 var port1 = 4242;
 
-var io = require('socket.io').listen(port1); 
+var io = require('socket.io');
 var server = net.createServer();
 
 server.listen(port1);
