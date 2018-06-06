@@ -1,9 +1,23 @@
-net = require('net');
+var express = require( "express" );
+var app = express();
+var http = require( "http" );
+app.use( express.static( "./public" ) ); // where the web page code goes
+var http_server = http.createServer( app ).listen( 4242 );
+var http_io = require( "socket.io" )( http_server );
+
+http_io.on( "connection", function( httpsocket ) {
+    httpsocket.on( 'python-message', function( fromPython ) {
+        httpsocket.broadcast.emit( 'message', fromPython );
+    });
+});
+
+
+
+/*net = require('net');
 
 //tableau des robots
 var bots = [];
 net.createServer(function (socket) {
-
   socket.name = socket.remoteAddress + ":" + socket.remotePort 
   bots.push(socket);
   socket.write(socket.name + " est connecté");
@@ -25,4 +39,4 @@ net.createServer(function (socket) {
   }
 }).listen(4242);
 
-console.log("Serveur démarré sur le port 4242\n");
+console.log("Serveur démarré sur le port 4242\n");*/
