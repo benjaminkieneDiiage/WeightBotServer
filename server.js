@@ -42,8 +42,7 @@ net.createServer(function (socket) {
     broadcast(data, socket);
   });
 */
-
-   io.emit("coucou", "t'est pas beau");
+  io.to(socket.id).emit("event", "coucou connard");
 
   /*socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
