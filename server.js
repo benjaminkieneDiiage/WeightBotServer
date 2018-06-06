@@ -1,15 +1,4 @@
-var zerorpc = require("zerorpc");
-
-var server = new zerorpc.Server({
-    hello: function(name, reply) {
-        reply(null, "Hello, " + name, false);
-    }
-});
-
-server.bind("tcp://192.168.0.156:4242");
-
-
-/*net = require('net');
+net = require('net');
 
 //tableau des robots
 var bots = [];
@@ -34,6 +23,6 @@ net.createServer(function (socket) {
     });
     process.stdout.write(message)
   }
-}).listen(1337);
+}).listen(4242);
 
-console.log("Serveur démarré sur le port 1337\n");*/
+console.log("Serveur démarré sur le port 4242\n");
