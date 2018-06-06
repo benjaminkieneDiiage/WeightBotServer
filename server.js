@@ -6,14 +6,14 @@ net.createServer(function (socket) {
 
   socket.name = socket.remoteAddress + ":" + socket.remotePort 
   bots.push(socket);
-  socket.write(socket.name + " connected");
+  socket.write(socket.name + " est connecté");
   socket.on('data', function (data) {
     broadcast(data, socket);
   });
 
   socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
-    broadcast(socket.name + " disconnect.\n");
+    broadcast(socket.name + " est déconnecté.\n");
   });
   
   function broadcast(message, sender) {
@@ -25,4 +25,4 @@ net.createServer(function (socket) {
   }
 }).listen(1337);
 
-console.log("Chat server running at port 1337\n");
+console.log("Serveur démarré sur le port 1337\n");
