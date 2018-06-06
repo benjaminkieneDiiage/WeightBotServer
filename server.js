@@ -43,7 +43,7 @@ net.createServer(function (socket) {
   });
 */
 
-   io.sockets.connected[bots[0]].emit("coucou", "t'est pas beau");
+   io.emit("coucou", "t'est pas beau");
 
   /*socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
