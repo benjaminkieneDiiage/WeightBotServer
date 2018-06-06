@@ -35,19 +35,22 @@ net = require('net');
 var bots = [];
 net.createServer(function (socket) {
   socket.name = socket.remoteAddress + ":" + socket.remotePort 
-  bots.push(socket);
-  console.log(socket.name + " est connecté");
-  socket.write(socket.name + " est connecté");
-  /*socket.on('data', function (data) {
+  bots.push(socket.id);
+  console.log(socket.id + " est connecté");
+
+ /* socket.on('data', function (data) {
     broadcast(data, socket);
-  });*/
+  });
+*/
+
+   io.sockets.connected[bots[0]].emit("coucou", "t'est pas beau");
 
   /*socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
     broadcast(socket.name + " est déconnecté.\n");
   });*/
   
- /* function broadcast(message, sender) {
+  /*function broadcast(message, sender) {
     bots.forEach(function (client) {
       if (client === sender) return;
       client.write(message);
