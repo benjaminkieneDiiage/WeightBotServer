@@ -1,4 +1,17 @@
-var net = require('net');
+var app = require('http').createServer()
+var io = require('socket.io')(app);
+var port = 4242;
+
+app.listen(4242);
+
+io.on('connect', onConnect);
+
+function onConnect(socket)
+{
+  console.log("connected from "+socket);
+}
+      
+/*var net = require('net');
 var io = require('socket.io');
 
 var port = 4242;
@@ -18,4 +31,4 @@ net.createServer(function (socket) {
   
 }).listen(port);
 
-console.log("Serveur démarré sur le port "+port);
+console.log("Serveur démarré sur le port "+port);*/
