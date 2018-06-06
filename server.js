@@ -30,7 +30,7 @@ server.on('connection', function(socket) {
 console.log("Serveur démarré sur le port 4242\n");
 */
 net = require('net');
-
+var io = require('socket.io');
 //tableau des robots
 var bots = [];
 net.createServer(function (socket) {
