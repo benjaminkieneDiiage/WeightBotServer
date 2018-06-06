@@ -6,8 +6,9 @@ var port = 4242;
 var bots = [];
 net.createServer(function (socket) {
   socket.name = socket.remoteAddress + ":" + socket.remotePort 
-  bots.push(socket.id);
-  console.log(socket.id + " est connecté");
+  bots.push(socket);
+  console.log(socket.ip + " est connecté");
+
 
 
   socket.on('end', function () {
