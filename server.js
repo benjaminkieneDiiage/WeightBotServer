@@ -1,36 +1,7 @@
-/*var net = require('net');
-var JsonSocket = require('json-socket');
-
-var port1 = 4242;
-
+var net = require('net');
 var io = require('socket.io');
 
-var server = net.createServer();
-
-server.listen(port1);
-server.on('connection', function(socket) {
-    liste=[];
-    object={};
-    liste.push(socket.remoteAddress);
-    console.log(liste);
-    socket = new JsonSocket(socket);
-    var n;
-    var isRunning = false;
-    var streatTimeout;
-    
-    socket.on('data', function(data) {
-        var str= data.toString();
-        console.log("veri : "+data.toString());    
-        var array = str.split(',');
-        console.log(array);
-        io.emit(array[0],array)
-    });
-});
-
-console.log("Serveur démarré sur le port 4242\n");
-*/
-net = require('net');
-var io = require('socket.io');
+var port = 4242;
 //tableau des robots
 var bots = [];
 net.createServer(function (socket) {
@@ -38,24 +9,13 @@ net.createServer(function (socket) {
   bots.push(socket.id);
   console.log(socket.id + " est connecté");
 
- /* socket.on('data', function (data) {
-    broadcast(data, socket);
-  });
-*/
-  io.to(socket.id).emit("event", "coucou connard");
+  bots[0].write("coucou connard");
 
-  /*socket.on('end', function () {
+  socket.on('end', function () {
     bots.splice(bots.indexOf(socket), 1);
     broadcast(socket.name + " est déconnecté.\n");
-  });*/
+  });
   
-  /*function broadcast(message, sender) {
-    bots.forEach(function (client) {
-      if (client === sender) return;
-      client.write(message);
-    });
-    process.stdout.write(message)
-  }*/
-}).listen(4242);
+}).listen(port);
 
-console.log("Serveur démarré sur le port 4242\n");
+console.log("Serveur démarré sur le port "+port);
