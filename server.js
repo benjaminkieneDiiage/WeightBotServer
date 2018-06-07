@@ -1,6 +1,7 @@
 const net = require('net');
+const ip = require('ip');
 const PORT = 4242;
-const ADDRESS = '172.20.10.5';
+const ADDRESS = ip.address();//'172.20.10.4';
 
 const readline = require('readline');
 
@@ -20,15 +21,13 @@ var server = net.createServer(function(socket)
     console.log(data.toString('utf8'));
     //socket.write("bienvenue");
   });
-
-
-
   for(var i = 0; i < clients.length; i++)
   {
     console.log(clients[i].remoteAddress);
   }
 });
 server.listen(PORT, ADDRESS);
+console.log(ADDRESS+" - "+port);
 
 function broadcast(message, receiver) 
 {
