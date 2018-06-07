@@ -1,46 +1,78 @@
-net = require('net');
-var port = 4242;
-// Keep track of the chat clients
-var clients = [];
+const net = require('net');
+const PORT = 4242;
+const ADDRESS = '172.20.10.5';
 
-// Start a TCP Server
-net.createServer(function (socket) {
+const readline = require('readline');
 
-  // Identify this client
-  socket.name = socket.remoteAddress + ":" + socket.remotePort 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-  // Put this new client in the list
+
+var clients = []; //get ip address clients[i].remoteAddress
+
+var server = net.createServer(function(socket) 
+{
   clients.push(socket);
-
-  // Send a nice welcome message and announce
-  console.log(socket.name + " est connecté");
-
-  // Handle incoming messages from clients.
   socket.on('data', function (data) 
   {
-    broadcast(data, socket);
+    console.log(data.toString('utf8'));
+    //socket.write("bienvenue");
   });
 
-  socket.emit("coucou","connard");
 
-  // Remove the client from the list when it leaves
- /* socket.on('end', function () {
-    clients.splice(clients.indexOf(socket), 1);
-    broadcast(socket.name + " s'est déconnecté.\n");
-  });*/
-  
-  // Send a message to all clients
-  function broadcast(message, sender) {
-    clients.forEach(function (client) {
-      // Don't want to send it to sender
-      if (client === sender) return;
-      client.write(message);
-    });
-    // Log it to the server output too
-    process.stdout.write(message)
+
+  for(var i = 0; i < clients.length; i++)
+  {
+    console.log(clients[i].remoteAddress);
   }
+});
+server.listen(PORT, ADDRESS);
 
+function broadcast(message, receiver) 
+{
+  clients.forEach(function (client) 
+  {
+    if (client.remoteAddress == receiver) 
+    {
+       client.write(message);
+    }
+  });
+}
+
+
+rl.question('command ', (answer) => 
+{
+  if("forward" == answer)
+  {
+      broadcast("motor.py", "172.20.10.3");
+  }
+  
+  rl.close();
+});
+
+      
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/*var net = require('net');
+var io = require('socket.io');
+
+var port = 4242;
+//tableau des robots
+var bots = [];
+net.createServer(function (socket) {
+  socket.name = socket.remoteAddress + ":" + socket.remotePort 
+  bots.push(socket);
+  console.log(socket.ip + " est connecté");
+
+
+
+  socket.on('end', function () {
+    bots.splice(bots.indexOf(socket), 1);
+    broadcast(socket.name + " est déconnecté.\n");
+  });
+  
 }).listen(port);
 
-// Put a friendly message on the terminal of the server.
-console.log("serveur connecté sur le port "+port);
+console.log("Serveur démarré sur le port "+port);*/
