@@ -27,7 +27,7 @@ var server = net.createServer(function(socket)
   }
 });
 server.listen(PORT, ADDRESS);
-console.log(ADDRESS+" - "+port);
+console.log(ADDRESS+" - "+PORT);
 
 function broadcast(message, receiver) 
 {
