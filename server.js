@@ -21,10 +21,11 @@ var server = net.createServer(function(socket)
   {
     console.log(data.toString('utf8'));
   });
-  for(var i = 0; i < clients.length; i++)
+  /*for(var i = 0; i < clients.length; i++)
   {
     console.log(clients[i].remoteAddress);
-  }
+  }*/
+ 
 });
 server.listen(PORT, ADDRESS);
 console.log(ADDRESS+" - "+PORT);
@@ -41,6 +42,15 @@ myRouter.route('/startLigneDetect/').get(function(req,res)
     {
       res.json("Problème pas de détection de ligne");
     } 
+});
+
+
+myRouter.route('/endpoint/').post(function(req,res)
+{ 
+    console.log(req.body);
+    /*res.on('data', function (body) {
+      console.log('Body: ' + body);
+    });*/
 });
 
 
